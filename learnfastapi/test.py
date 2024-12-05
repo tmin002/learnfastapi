@@ -14,19 +14,20 @@ app.add_middleware(
 @app.post('/post_get')
 def post_content(post: dict):
     return {
+        'page_count': 10,
         'posts': [
             {
                 'id': 2134234,
                 'title': 'hello world',
                 'content': 'lorenaslfjasdlkfjklsdafsdakljfalsadfjldjfklaj\nklsad',
-                'user_id': 'ssh9930',
+                'userid': 'ssh9930',
                 'last_modified_datetime': datetime.datetime.now(),
             },
             {
                 'id': 214234,
                 'title': 'hello world',
                 'content': 'lorenaslfjasdlkfjklsdafsdakljfalsadfjldjfklaj\nklsad',
-                'user_id': 'ssh9930',
+                'userid': 'ssh9930',
                 'last_modified_datetime': datetime.datetime.now(),
             }
         ]

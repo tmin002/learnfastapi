@@ -16,15 +16,18 @@ export class Post {
             .then(response => response.json())
     }
     static uploadPost(post) {
-        return Request.fetch('/post_upload', 'POST', post);
+        return Request.fetch('/post_upload', 'POST', post)
+            .then(response => response.json())
     }
     static deletePost(id) {
         return Request.fetch('/post_delete', 'POST', {
             id: id
-        });
+        })
+            .then(response => response.ok)
     }
     static updatePost(id, post) {
         post.id = id
-        return Request.fetch('/post_update', 'POST', post);
+        return Request.fetch('/post_update', 'POST', post)
+            .then(response => response.json())
     }
 }

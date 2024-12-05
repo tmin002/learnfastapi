@@ -18,29 +18,32 @@
     </header>
 
     <main>
-        <div id="write_box">
+       <div id="write_box">
             <input id="write_post_title_textbox" value="오늘 무슨 일이 있었나요">
             <textarea id="write_post_content_textbox">일어난 일을 적어보세요</textarea>
             <button id="post_btn">post</button>
         </div>
-        sdf
-        <template id="post">
-            <article>
-                <h1 class="article_title">안녕하세요, 처음 뵙겠습니다</h1>
-                <p class="article_metadata">ssh9930, 2024-10-10 23:22:44</p>
-                <div class="article_content">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                </div>
-                <br>
-                <div class="article_edit_box">
-                    <button>edit</button>
-                    <button>delete</button>
-                </div>
-                <hr>
-            </article>
-        </template>
 
+        <div id="post_box"></div>
     </main>
+
+    <footer>
+        <div id="post_index_box"></div>
+    </footer>
+
+    <!-- templates -->
+    <template id="post_template">
+        <article>
+            <h1 id="article_title"></h1>
+            <p id="article_metadata"></p>
+            <div id="article_edit_box">
+                <button>edit</button>
+                <button>delete</button>
+            </div>
+            <div id="article_content"></div>
+            <br>
+            <hr>
+        </article>
+    </template>
 </body>
 </html>

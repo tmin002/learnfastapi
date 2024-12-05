@@ -91,13 +91,14 @@
 * response 
 <pre>
 {
+    page_count = [page count],
     posts = [
         {
             "id": "[post id]",
             "title": "[post title]",
             "content": "[post content]"
-            "user_id": "[id of user who uploaded the post]",
-            "last_modified_datetime": "[post last modified datetime yyyy-mm-dd hh:mm:ss]"
+            "userid": "[id of user who uploaded the post]",
+            "last_update": "[post last modified datetime yyyy-mm-dd hh:mm:ss]"
         },
         ... (maximum 50)
     ]

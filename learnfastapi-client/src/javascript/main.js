@@ -1,10 +1,11 @@
-import {Post} from './Post'
+import { E } from './element/DOM';
+import { PostElementControl } from "./element/PostElementControl";
+import { HeaderControl } from "./element/HeaderControl";
+import {PostElement} from "./element/PostElement";
+import {Post} from "./Post";
 
 //
 window.onload = () => {
-    Post.getPosts("1")
-        .then(posts => {
-            posts['posts'].forEach(post => console.log(post))
-        })
-        .catch(err => alert(err));
+    HeaderControl.updateAuthBox();
+    PostElementControl.updatePage(1);
 };
