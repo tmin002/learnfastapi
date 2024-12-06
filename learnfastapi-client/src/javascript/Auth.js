@@ -1,4 +1,4 @@
-import {Request} from "./Request";
+import {AuthenticationCauseError, ConflictCauseError, Request, RequestFailError} from "./Request";
 
 export class Auth {
     static __CURRENT_SESSION_ID  = null;
@@ -14,22 +14,21 @@ export class Auth {
         return Boolean(Auth.getSessionID());
     }
 
-    static signIn(id, pw) { return Request.fetch('/sign_in', 'POST', {
+    static signIn(id, pw) {
+        return Request.fetch('/sign_in', 'POST', {
             id: id,
             pw: pw
-        })
+        }, [ AuthenticationCauseError ])
             .then(response => {
                 Auth.__CURRENT_SESSION_ID = String(response.json()['session_id']);
                 Auth.__CURRENT_USER_ID = id;
-                return true;
-            })
+            });
     }
     static signUp(id, pw) {
         return Request.fetch('/sign_up', 'POST', {
             id: id,
             pw: pw
-        })
-            .then(response => response.ok)
+        }, [ ConflictCauseError ]);
     }
     static signOut(session_id) {
         return Request.fetch('/sign_out', 'POST', {})
