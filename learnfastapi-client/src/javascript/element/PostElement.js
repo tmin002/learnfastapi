@@ -1,27 +1,31 @@
-import { E, setElementDisplay } from './DOM';
+import { E, C, setElementDisplay } from './DOM';
 
 export class PostElement extends HTMLElement {
     constructor(post) {
         super();
-        const template = E("post_template");
-        const templateContent = template.content;
-        const shadowRoot = this.attachShadow({mode: 'open'});
-        shadowRoot.appendChild(templateContent.cloneNode(true));
-
         this.post = post;
-        shadowRoot.getElementById("article_title").innerText =
-            post.title;
-        shadowRoot.getElementById("article_metadata").innerText =
-            `${post.userid}, ${post.last_update}`;
-        shadowRoot.getElementById("article_content").innerText =
-            post.content;
+    }
+    connectedCallback() {
+        this.innerHTML = `
+            <article>
+                <h1 class="post_title">${this.post.title}</h1>
+                <p class="post_metadata">${this.post.userid}, ${this.post.last_update}</p>
+                <div class="post_edit_box">
+                    <button>edit</button>
+                    <button>delete</button>
+                </div>
+                <div class="post_content">${this.post.content}</div>
+                <br>
+                <hr>
+            </article>
+        `;
 
         this.setEditBoxVisibility(false);
     }
 
     setEditBoxVisibility(visible) {
         setElementDisplay(
-            this.shadowRoot.getElementById("article_edit_box"),
+            this.getElementsByClassName("post_edit_box")[0],
             visible ? 'block' : 'none')
     }
 }

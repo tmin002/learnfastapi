@@ -1,4 +1,5 @@
 import {E, setElementDisplay} from "./DOM";
+import {LoginPopupElement} from "./SignInPopupElement";
 
 export class HeaderControl {
     static getSignInBtnElement = () => E("sign_in_btn");
@@ -21,3 +22,5 @@ export class HeaderControl {
         }
     }
 }
+
+// E('sign_out_btn').onclick = () => LoginPopupElement.show();

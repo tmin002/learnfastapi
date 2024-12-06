@@ -40,10 +40,6 @@ main > #write_box > #write_post_content_textbox {
     resize: vertical;
 }
 
-footer {
-
-}
-
 #post_index_box {
     display: flex;
     justify-content: center;
@@ -54,6 +50,27 @@ footer {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.popup_box_container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.popup_box {
+    width: 300px;
+    background: white;
+    box-shadow: black 0px 1px 8px 0px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
 .selected {
     color: blue;
     font-weight: bold;
