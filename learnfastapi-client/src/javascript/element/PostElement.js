@@ -1,4 +1,7 @@
 import { E, C, setElementDisplay } from './DOM';
+import {PageControl} from "./page/PageControl";
+import {OKCancelPopupElement, OKPopupElement} from "./popup/PopupElementPresets";
+import {Post} from "../Post";
 
 export class PostElement extends HTMLElement {
     constructor(post) {
@@ -9,10 +12,12 @@ export class PostElement extends HTMLElement {
         this.innerHTML = `
             <article>
                 <h1 class="post_title">${this.post.title}</h1>
-                <p class="post_metadata">${this.post.userid}, ${this.post.last_update}</p>
+                <span class="post_metadata">${this.post.userid}, ${this.post.last_update}</span>
                 <div class="post_edit_box">
-                    <button>edit</button>
-                    <button>delete</button>
+                    <button class="post_edit_btn">edit</button>
+                    <button class="post_delete_btn">delete</button>
+                    <br>
+                    <br>
                 </div>
                 <div class="post_content">${this.post.content}</div>
                 <br>
@@ -20,6 +25,22 @@ export class PostElement extends HTMLElement {
             </article>
         `;
 
+        this.querySelector('.post_edit_btn').onclick = () => {
+            PageControl.pages['WritePage'].show(this.post);
+        }
+        this.querySelector('.post_delete_btn').onclick = () => {
+            OKCancelPopupElement.show(
+                "Delete post", `Are you sure want to delete<br>"${this.post.title}"?`)
+                .then(ok => {
+                    if (ok)
+                        return Post.deletePost(this.post.id);
+                    else return false;
+                })
+                .catch(err => {
+                    if (err.processable)
+                        OKPopupElement.show('Error deleting post', err.message);
+                })
+        }
         this.setEditBoxVisibility(false);
     }
 
