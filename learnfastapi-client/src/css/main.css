@@ -17,6 +17,9 @@ header {
 header > #header_title {
     margin-left: 10px;
 }
+header > #header_page_box {
+    margin: auto 10px auto;
+}
 header > #header_authbox {
     margin: auto 10px auto auto;
 }
@@ -24,17 +27,17 @@ main {
     margin: auto;
     max-width: 800px;
 }
-main > #write_box {
+#write_box {
     background: green;
     display: flex;
     flex-direction: column;
     gap: 0;
 }
-main > #write_box > #write_post_title_textbox {
+#write_box > #write_post_title_textbox {
     margin: 0;
     font-size: 20px;
 }
-main > #write_box > #write_post_content_textbox {
+#write_box > #write_post_content_textbox {
     margin: 0;
     min-height: 100px;
     resize: vertical;
@@ -49,6 +52,14 @@ main > #write_box > #write_post_content_textbox {
     font-size: 17px;
     text-decoration: underline;
     cursor: pointer;
+}
+
+#write_etc_box {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 3px;
 }
 
 .popup_box_container {
@@ -70,7 +81,6 @@ main > #write_box > #write_post_content_textbox {
     padding-left: 20px;
     padding-bottom: 20px;
 }
-
 .selected {
     color: blue;
     font-weight: bold;
@@ -83,4 +93,15 @@ main > #write_box > #write_post_content_textbox {
     text-decoration: underline;
     cursor: pointer;
     font-weight: normal;
+}
+
+.header_btn {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.page_selected {
+    color: blue;
+    font-weight: bold;
 }
