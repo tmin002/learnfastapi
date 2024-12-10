@@ -23,12 +23,5 @@ def post_content(post: dict):
                 'userid': 'ssh9930',
                 'last_modified_datetime': datetime.datetime.now(),
             },
-            {
-                'id': 214234,
-                'title': 'hello world',
-                'content': 'lorenaslfjasdlkfjklsdafsdakljfalsadfjldjfklaj\nklsad',
-                'userid': 'ssh9930',
-                'last_modified_datetime': datetime.datetime.now(),
-            }
         ]
     }
