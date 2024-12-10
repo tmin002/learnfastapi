@@ -1,9 +1,9 @@
 import { Auth } from './Auth';
-import {OKPopupElement} from "./element/PopupElementPresets";
+import {OKPopupElement} from "./element/popup/PopupElementPresets";
 
 export const SERVER_ADDRESS = 'http://localhost:8000';
 export class Request {
-    static fetch(addr, method, body, silentErrorTypes = []) {
+    static fetch(addr, method, body) {
         let fetch_init = {
             method: method,
             headers: {
@@ -17,55 +17,44 @@ export class Request {
 
         return fetch(`${SERVER_ADDRESS}${addr}`, fetch_init)
             .catch(err => {
-                throw new SendingFailCauseError();
+                throw new UnprocessableRequestFailError(err.message);
             })
             .then(response => {
-                switch (response.statusCode) {
-                    case 409: throw new ConflictCauseError(response);
-                    case 401: throw new AuthenticationCauseError(response);
-                    case 500: throw new ServerCauseError(response);
-                    default:
-                        if (response.ok)
-                            return response;
-                        else
-                            throw new SendingFailCauseError(
-                                response,
-                                `${response.status} ${response.statusText}`
-                            );
+                switch (response.status) {
+                    case 404: throw new UnprocessableRequestFailError(
+                        "Check your network connection<br>(404 Not Found)");
+                    case 500: throw new UnprocessableRequestFailError(
+                        "Server cause error<br>(500 Internal Server Error)");
                 }
-            })
-            .catch(err => {
-                if (!(silentErrorTypes.includes(typeof(err))))
-                    OKPopupElement.show('Error', err.message);
-                throw err;
+
+                let resObj = response.json();
+                if (!(response && response.json) || (!(response.ok) && resObj.detail === undefined)) {
+                    throw new UnprocessableRequestFailError(`${response.status} ${response.statusText}`);
+                }
+                if (!(response.ok)) {
+                    throw new ProcessableRequestFailError(response.status, resObj.detail);
+                }
+
+                return resObj;
             });
     }
 }
-export class RequestFailError extends Error {
-    constructor(response = {}, name = 'RequestFailError', message = 'Request Fail') {
+export class UnprocessableRequestFailError extends Error {
+    constructor(message = 'Request Fail') {
         super(message);
-        this.name = name;
+        this.name = "UnprocessableRequestFailError";
         this.message = message;
-        this.response = response;
+        this.processable = false;
+        OKPopupElement.show('Server / Network Error', message);
     }
 }
-export class SendingFailCauseError extends RequestFailError {
-    constructor(response = {}, message = 'Failed to communicate with server') {
-        super(response, 'SendingFailCauseError', message);
-    }
-}
-export class AuthenticationCauseError extends RequestFailError {
-    constructor(response = {}, message = 'Authentication failed') {
-        super(response, 'AuthenticationCauseError', message);
-    }
-}
-export class ConflictCauseError extends RequestFailError {
-    constructor(response = {}, message = 'Data already exists') {
-        super(response, 'ConflictCauseError', message);
-    }
-}
-export class ServerCauseError extends RequestFailError {
-    constructor(response = {}, message = 'Internal server error') {
-        super('ServerCauseError', message, response);
+
+export class ProcessableRequestFailError extends Error {
+    constructor(statusCode, message = 'Request Fail') {
+        super(message);
+        this.name = "ProcessableRequestFailError";
+        this.statusCode = statusCode;
+        this.message = message;
+        this.processable = true;
     }
 }

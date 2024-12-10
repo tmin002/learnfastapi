@@ -1,4 +1,5 @@
 import {AuthenticationCauseError, ConflictCauseError, Request, RequestFailError} from "./Request";
+import {OKPopupElement} from "./element/popup/PopupElementPresets";
 
 export class Auth {
     static __CURRENT_SESSION_ID  = null;
@@ -18,7 +19,7 @@ export class Auth {
         return Request.fetch('/sign_in', 'POST', {
             id: id,
             pw: pw
-        }, [ AuthenticationCauseError ])
+        })
             .then(response => {
                 Auth.__CURRENT_SESSION_ID = String(response.json()['session_id']);
                 Auth.__CURRENT_USER_ID = id;
@@ -28,14 +29,14 @@ export class Auth {
         return Request.fetch('/sign_up', 'POST', {
             id: id,
             pw: pw
-        }, [ ConflictCauseError ]);
+        });
     }
     static signOut(session_id) {
         return Request.fetch('/sign_out', 'POST', {})
             .then(response => {
                 Auth.__CURRENT_SESSION_ID = null;
                 Auth.__CURRENT_USER_ID = null;
-            })
+            });
     }
     static unregister(session_id) {
         // TODO
