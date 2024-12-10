@@ -99,6 +99,7 @@
             "content": "[post content]"
             "userid": "[id of user who uploaded the post]",
             "last_update": "[post last modified datetime yyyy-mm-dd hh:mm:ss]"
+            "private" = "[whether post is shown to not registered users]"
         },
         ... (maximum 50)
     ]
@@ -111,7 +112,8 @@
 {
     "session_id" = "[session id]"
     "title": "[post title]",
-    "content": "[post content]"
+    "content": "[post content]",
+    "private": "[whether post is shown to not registered users]",
 }
 </pre>
 * response
@@ -130,6 +132,7 @@
     "id": "[post id]"
     "title": "[updated post title]",
     "content": "[updated post content]"
+    "private": "[whether post is shown to not registered users]",
 }
 </pre>
 
