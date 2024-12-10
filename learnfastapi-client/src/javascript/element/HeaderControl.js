@@ -1,5 +1,6 @@
 import {E, setElementDisplay} from "./DOM";
-import {LoginPopupElement} from "./SignInPopupElement";
+import {LoginPopupElement} from "./popup/SignInPopupElement";
+import {PageControl} from "./page/PageControl";
 
 export class HeaderControl {
     static getSignInBtnElement = () => E("sign_in_btn");
@@ -20,6 +21,16 @@ export class HeaderControl {
             setElementDisplay(HeaderControl.getUserIDElement(), 'inline');
             HeaderControl.getUserIDElement().innerText = userid;
         }
+    }
+
+    static updateSelectedPage(pageName) {
+        Object.keys(PageControl.pages).forEach(pageNameKey => {
+            let headerBtnClassList = E(PageControl.pages[pageNameKey].headerBtnId).classList;
+            if (pageName === pageNameKey)
+                headerBtnClassList.add('page_selected');
+            else
+                headerBtnClassList.remove('page_selected');
+        });
     }
 }
 
